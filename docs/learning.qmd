@@ -1,0 +1,15 @@
+---
+title: "Reproducible documents"
+author: "Luke, Anders, Ole, & Ziping"
+format: html
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+## Simple code
+
+```{r}
+3 * 3
+```
