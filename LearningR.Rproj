@@ -1,5 +1,4 @@
 Version: 1.0
-ProjectId: 3a087421-98de-4e3f-abe7-c24ee7e0a85f
 
 RestoreWorkspace: No
 SaveWorkspace: No
@@ -15,5 +14,3 @@ LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
-
-ProjectName: LearningR
