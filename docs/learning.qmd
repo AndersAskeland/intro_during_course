@@ -5,7 +5,10 @@ format: html
 ---
 
 ```{r setup}
+#| message: false
+#| warning: false
 library(tidyverse)
+post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
 ```
 
 ## Simple code
@@ -13,3 +16,62 @@ library(tidyverse)
 ```{r}
 3 * 3
 ```
+
+## Showing the data
+
+```{r}
+glimpse(post_meal_data)
+```
+
+## Plot one continuous variable
+
+```{r}
+#| fig-cap: "Distribution of BMI."
+#| label: fig-bmi-histo
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram()
+```
+
+## Plot a discrete variable
+
+```{r discrete-variables}
+#| fig-cap: "Distribution of glykemi."
+#| label: fig-glykemi-bar
+ggplot(post_meal_data, aes(x = glykemi)) +
+  geom_bar()
+```
+
+## Plot two discrete variables
+
+```{r}
+ggplot(post_meal_data, aes(x = Group, fill = as.character(glykemi))) +
+  geom_bar(position = position_dodge())
+```
+
+## Side-by-side plots
+
+```{r side-by-side-figs}
+#| label: fig-bmi-glycemia
+#| fig-cap: "BMI and glycemia, side by side."
+#| fig-subcap:
+#|   - "Distribution of BMI."
+#|   - "Number of those with glycemia."
+#| layout-ncol: 2
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram()
+
+ggplot(post_meal_data, aes(x = glykemi)) +
+  geom_bar()
+```
+
+## Plotting two continuous variables
+
+```{r}
+#| fig-cap: "Scatterplot of BMI and the area under the curve for glucose."
+#| label: fig-bmi-auc-pg
+ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
+  geom_point() +
+  geom_smooth()
+```
+
+## 
