@@ -8,10 +8,17 @@ format: html
 #| message: false
 #| warning: false
 library(tidyverse)
+
+# Read raw data
 post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
 
-small_post_meal_data <- select(post_meal_data, id, Age, BMI, Group, auc_pg, auc_ins, glykemi)
+# Create small dataset
+small_post_meal_data <- select(post_meal_data, 
+                               id, Age, BMI, 
+                               Group, auc_pg, 
+                               auc_ins, glykemi)
 
+# Create tidier dataset
 tidier_post_meal_data <- small_post_meal_data |>
   rename(
     auc_glucose = auc_pg,
@@ -20,10 +27,13 @@ tidier_post_meal_data <- small_post_meal_data |>
   filter(glykemi == 0) |>
   select(-glykemi)
 
+# Created tidied dataset
 tidied_post_meal_data <- tidier_post_meal_data |>
   mutate(
     insulin_glucose_ratio = auc_insulin / auc_glucose,
-    Group = if_else(Group == "CTR", "Control", "First-degree relative")
+    Group = if_else(Group == "CTR", 
+                    "Control", 
+                    "First-degree relative")
   )
 ```
 
@@ -97,11 +107,8 @@ ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
 ## Selecting data
 ```{r}
 select(post_meal_data, Age)
-
 select(post_meal_data, Age, BMI, Weight)
-
 select(post_meal_data, -Group)
-
 select(post_meal_data, starts_with("PG"))
 select(post_meal_data, ends_with("DXA"))
 select(post_meal_data, contains("0"))
@@ -119,7 +126,7 @@ small_post_meal_data |>
   )
 ```
 
-## filtering data by row
+## Filtering data by row
 ```{r}
 small_post_meal_data |>
   filter(glykemi == 1)
@@ -147,7 +154,6 @@ tidier_post_meal_data |>
     Group = if_else(Group == "CTR", "Control", "First-degree relative")
   )
 ```
-
 
 ## Visualizing with jitter plot
 ```{r}
@@ -177,3 +183,5 @@ tidied_post_meal_data |>
     y = "Insulin to glucose ratio"
   )
 ```
+
+
